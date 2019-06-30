@@ -1,6 +1,9 @@
 fileFormatVersion: 2
 guid: b9b3600e7ab99422684e1f3bf597a456
 ScriptedImporter:
+  fileIDToRecycleName:
+    11400000: Assets/ML-Agents/Examples/Basic/TFModels/BasicLearning.nn
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

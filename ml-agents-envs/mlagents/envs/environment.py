@@ -33,7 +33,8 @@ class UnityEnvironment(BaseUnityEnvironment):
                  seed: int = 0,
                  docker_training: bool = False,
                  no_graphics: bool = False,
-                 timeout_wait: int = 30):
+                 timeout_wait: int = 30,
+                 reward_func: Optional[str] = None):
         """
         Starts a new unity environment and establishes a connection with the environment.
         Notice: Currently communication between Unity and Python takes place over an open socket without authentication.
@@ -64,7 +65,7 @@ class UnityEnvironment(BaseUnityEnvironment):
                 "If the environment name is None, "
                 "the worker-id must be 0 in order to connect with the Editor.")
         if file_name is not None:
-            self.executable_launcher(file_name, docker_training, no_graphics)
+            self.executable_launcher(file_name, docker_training, no_graphics, reward_func)
         else:
             logger.info("Start training by pressing the Play button in the Unity Editor.")
         self._loaded = True
@@ -104,6 +105,7 @@ class UnityEnvironment(BaseUnityEnvironment):
         if self._num_external_brains == 0:
             logger.warning(" No Learning Brains set to train found in the Unity Environment. "
                            "You will not be able to pass actions to your agent(s).")
+        # logger.debug('Env: The reward_func is {}'.format(reward_func))
 
     @property
     def logfile_path(self):
@@ -152,7 +154,8 @@ class UnityEnvironment(BaseUnityEnvironment):
     def reset_parameters(self):
         return self._resetParameters
 
-    def executable_launcher(self, file_name, docker_training, no_graphics):
+    def executable_launcher(self, file_name, docker_training, no_graphics, reward_func):
+        logger.debug('Env: The reward_func is {}'.format(reward_func))
         cwd = os.getcwd()
         file_name = (file_name.strip()
                      .replace('.app', '').replace('.exe', '').replace('.x86_64', '').replace('.x86',
@@ -202,7 +205,7 @@ class UnityEnvironment(BaseUnityEnvironment):
                 if no_graphics:
                     self.proc1 = subprocess.Popen(
                         [launch_string, '-nographics', '-batchmode',
-                         '--port', str(self.port)])
+                         '--port', '--rf', reward_func, str(self.port)])
                 else:
                     self.proc1 = subprocess.Popen(
                         [launch_string, '--port', str(self.port)])

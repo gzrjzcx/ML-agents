@@ -1,6 +1,9 @@
 fileFormatVersion: 2
 guid: 8be33caeca04d43498913448b5364f2b
 ScriptedImporter:
+  fileIDToRecycleName:
+    11400000: Assets/ML-Agents/Examples/3DBall/TFModels/3DBallHardLearning.nn
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

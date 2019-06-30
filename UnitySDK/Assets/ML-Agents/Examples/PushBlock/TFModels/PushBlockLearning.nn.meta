@@ -1,6 +1,9 @@
 fileFormatVersion: 2
 guid: 16027726448534f92916ae237e0ba315
 ScriptedImporter:
+  fileIDToRecycleName:
+    11400000: Assets/ML-Agents/Examples/PushBlock/TFModels/PushBlockLearning.nn
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

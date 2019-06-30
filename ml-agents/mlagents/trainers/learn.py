@@ -49,6 +49,8 @@ def run_training(sub_id: int, run_seed: int, run_options, process_queue):
     fast_simulation = not bool(run_options['--slow'])
     no_graphics = run_options['--no-graphics']
     trainer_config_path = run_options['<trainer-config-path>']
+    reward_func = run_options['--rf']
+    print("learn.py: reward_func = " + reward_func)
     # Recognize and use docker volume if one is passed as an argument
     if not docker_target_name:
         model_path = './models/{run_id}-{sub_id}'.format(run_id=run_id, sub_id=sub_id)
@@ -76,7 +78,8 @@ def run_training(sub_id: int, run_seed: int, run_options, process_queue):
         docker_target_name,
         no_graphics,
         run_seed,
-        base_port + (sub_id * num_envs)
+        base_port + (sub_id * num_envs),
+        reward_func
     )
     env = SubprocessUnityEnvironment(env_factory, num_envs)
     maybe_meta_curriculum = try_create_meta_curriculum(curriculum_folder, env)
@@ -86,7 +89,7 @@ def run_training(sub_id: int, run_seed: int, run_options, process_queue):
                            save_freq, maybe_meta_curriculum,
                            load_model, train_model,
                            keep_checkpoints, lesson, env.external_brains,
-                           run_seed, fast_simulation)
+                           run_seed, fast_simulation, reward_func)
 
     # Signal that environment has been launched.
     process_queue.put(True)
@@ -155,7 +158,8 @@ def create_environment_factory(
         docker_target_name: str,
         no_graphics: bool,
         seed: Optional[int],
-        start_port: int
+        start_port: int,
+        reward_func: str
 ) -> Callable[[int], BaseUnityEnvironment]:
     if env_path is not None:
         # Strip out executable extensions if passed
@@ -189,7 +193,8 @@ def create_environment_factory(
             seed=env_seed,
             docker_training=docker_training,
             no_graphics=no_graphics,
-            base_port=start_port
+            base_port=start_port,
+            reward_func = reward_func
         )
     return create_unity_environment
 
@@ -237,6 +242,7 @@ def main():
       --docker-target-name=<dt>  Docker volume to store training-specific files [default: None].
       --no-graphics              Whether to run the environment in no-graphics mode [default: False].
       --debug                    Whether to run ML-Agents in debug mode with detailed logging [default: False].
+      --rf=<name>
     '''
 
     options = docopt(_USAGE)

@@ -35,7 +35,8 @@ class TrainerController(object):
                  lesson: Optional[int],
                  external_brains: Dict[str, BrainParameters],
                  training_seed: int,
-                 fast_simulation: bool):
+                 fast_simulation: bool,
+                 reward_func: str):
         """
         :param model_path: Path to save the model.
         :param summaries_dir: Folder to save training summaries.
@@ -48,6 +49,7 @@ class TrainerController(object):
         :param lesson: Start learning from this lesson.
         :param external_brains: dictionary of external brain names to BrainInfo objects.
         :param training_seed: Seed to use for Numpy and Tensorflow random number generation.
+        :param reward_func: Reward function used for RL training.
         """
 
         self.model_path = model_path
@@ -68,6 +70,7 @@ class TrainerController(object):
         self.seed = training_seed
         self.training_start_time = time()
         self.fast_simulation = fast_simulation
+        self.reward_func = reward_func
         np.random.seed(self.seed)
         tf.set_random_seed(self.seed)
 

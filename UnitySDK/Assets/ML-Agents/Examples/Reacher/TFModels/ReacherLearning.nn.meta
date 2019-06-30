@@ -1,6 +1,9 @@
 fileFormatVersion: 2
 guid: 0c779bd93060f405cbe4446e1dcbf2a6
 ScriptedImporter:
+  fileIDToRecycleName:
+    11400000: Assets/ML-Agents/Examples/Reacher/TFModels/ReacherLearning.nn
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
