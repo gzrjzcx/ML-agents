@@ -205,10 +205,11 @@ class UnityEnvironment(BaseUnityEnvironment):
                 if no_graphics:
                     self.proc1 = subprocess.Popen(
                         [launch_string, '-nographics', '-batchmode',
-                         '--port', '--rf', reward_func, str(self.port)])
+                         '--port', str(self.port), '--rf', reward_func])
+                    logger.debug("rf: executable_launcher: reward_func = {0}".format(reward_func))
                 else:
                     self.proc1 = subprocess.Popen(
-                        [launch_string, '--port', str(self.port)])
+                        [launch_string, '--port', str(self.port), '--rf', reward_func])
             else:
                 """
                 Comments for future maintenance:
