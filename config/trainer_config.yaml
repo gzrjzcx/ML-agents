@@ -21,6 +21,64 @@ default:
     curiosity_strength: 0.01
     curiosity_enc_size: 128
 
+CCMStackLearning:
+    normalize: false
+    max_steps: 1.0e7
+    time_horizon: 1000
+    buffer_size: 491520
+    lambd: 0.995
+    batch_size: 128
+    learning_rate: 5.0e-5
+    beta: 1.0e-4
+    epsilon: 0.1
+    hidden_units: 256
+    num_layers: 2
+    use_recurrent: false
+    sequence_length: 64
+    memory_size: 256    
+
+RewardLearning:
+    normalize: false
+    max_steps: 5.0e6
+    time_horizon: 1000
+    buffer_size: 30720
+    lambd: 0.995
+    batch_size: 128
+    learning_rate: 5.0e-5
+    beta: 1.0e-4
+    epsilon: 0.1
+    hidden_units: 256
+    num_layers: 2
+
+SaverLearning:
+    normalize: false
+    max_steps: 5.0e5
+    time_horizon: 1000
+    buffer_size: 30720
+    lambd: 0.995
+    batch_size: 128
+    learning_rate: 1.0e-4
+    beta: 1.0e-4
+    epsilon: 0.2
+    num_layers: 1
+    hidden_units: 128
+    use_recurrent: false
+    sequence_length: 64
+    memory_size: 256
+
+SingleSwingLearning:
+    normalize: false
+    max_steps: 5.0e6
+    time_horizon: 1000
+    buffer_size: 30720
+
+CBXLearning:
+    normalize: true
+    max_steps: 2.0e6
+    num_layers: 2
+    hidden_units: 64
+    learning_rate: 5.0e-4
+
 BananaLearning:
     normalize: false
     batch_size: 1024

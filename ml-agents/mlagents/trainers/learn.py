@@ -112,7 +112,7 @@ def try_create_meta_curriculum(curriculum_folder: Optional[str], env: BaseUnityE
                                               'does not have a corresponding '
                                               'Brain. Check that the '
                                               'curriculum file has the same '
-                                              'name as the Brain '
+                                              'name as the Brain ' + brain_name + ' '
                                               'whose curriculum it defines.')
         return meta_curriculum
 

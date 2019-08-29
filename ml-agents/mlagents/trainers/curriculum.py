@@ -25,7 +25,7 @@ class Curriculum(object):
         self._brain_name = os.path.basename(location).split('.')[0]
 
         try:
-            with open(location) as data_file:
+            with open(location, encoding = "ISO-8859-1") as data_file:
                 self.data = json.load(data_file)
         except IOError:
             raise CurriculumError(
